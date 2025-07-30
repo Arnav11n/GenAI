@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI</title>
+    <link href="main.css" rel="stylesheet">
+    <style>
+
+        body {
+            background: var(--darker-bg); 
+        }
+
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -5;
+        }
+
+        .cyber-gradient {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            animation: gradientRotate 30s linear infinite;
+            filter: blur(40px);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3; 
+            animation: orbFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -4;
+        }
+
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-cyan);
+            top: 10%;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-pink);
+            bottom: 10%;
+            right: -200px;
+            animation-delay: 5s;
+        }
+
+        .matrix-rain, .data-streams, .grid-overlay, .scanlines, .noise-overlay {
+            display: none;
+        }
+
+        .particles {
+
+            display: block; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -3; 
+        }
+
+        .playground-container {
+            max-width: 1200px;
+
+            margin: 40px auto 60px auto; 
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .playground-container {
+
+                grid-template-columns: 1fr; 
+                max-width: 800px; 
+            }
+        }
+
+        .ai-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-section h3 {
+            font-size: 2rem;
+            color: var(--primary-cyan);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .ai-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-pink));
+        }
+
+        .ai-section .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-section label {
+            display: block;
+            color: var(--primary-cyan);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ai-section textarea,
+        .ai-section input[type="text"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            clip-path: polygon(5px 0%, 100% 0%, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0% 100%, 0% 5px);
+            resize: vertical;
+            min-height: 50px;
+        }
+
+        .ai-section textarea {
+            min-height: 120px;
+        }
+
+        .ai-section input[type="file"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            clip-path: polygon(5px 0%, 100% 0%, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0% 100%, 0% 5px);
+            cursor: pointer;
+        }
+
+        .ai-section input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: var(--darker-bg);
+            padding: 0.5rem 1rem;
+            border: none;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ai-section input[type="file"]::-webkit-file-upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .ai-section .btn-primary {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .output-area {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed var(--border-color);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            min-height: 150px;
+            max-height: 400px; 
+            overflow-y: auto; 
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: left;
+            clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+            word-wrap: break-word; 
+            white-space: pre-wrap; 
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            max-width: 85%;
+            word-break: break-word;
+        }
+
+        .chat-message.user {
+            background: rgba(0, 255, 255, 0.15);
+            border: 1px solid var(--primary-cyan);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .chat-message.ai {
+            background: rgba(255, 0, 255, 0.15);
+            border: 1px solid var(--primary-pink);
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .chat-message p {
+            margin: 0;
+        }
+
+        .image-output {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .image-output img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--primary-cyan);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--primary-cyan);
+            font-size: 1.1rem;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .message-box {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            word-wrap: break-word;
+        }
+
+        .message-box.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .playground-container {
+                padding: 1rem;
+                margin-top: 100px;
+            }
+            .ai-section {
+                padding: 1.5rem;
+            }
+            .ai-section h3 {
+                font-size: 1.5rem;
+            }
+            .ai-section textarea,
+            .ai-section input[type="text"],
+            .ai-section input[type="file"] {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .ai-section .btn-primary {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .output-area {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        .playground-main-heading {
+            text-align: center;
+            padding: 40px 20px 20px; 
+            margin-top: 80px; 
+        }
+
+        .playground-main-heading .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            margin-bottom: 1rem;
+        }
+
+        .playground-main-heading .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-bg">
+        <div class="cyber-gradient"></div>
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+    </div>
+
+    <div class="particles" id="particlesContainer"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">GenAI</a>
+            <ul class="nav-links">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-bottom">
+                <a href="login.html" class="cyber-button" id="navActionButton">Start Building</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuBtn">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="mobile-menu-logo">GenAI</a>
+            <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="login.html" class="cyber-button" id="mobileNavActionButton">Start Building</a>
+        </div>
+        <nav class="mobile-menu-nav">
+            <ul>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="playground-main-heading">
+        <h1 class="hero-title">
+            <span class="hero-main">Unleash</span><span class="hero-flow">Creativity</span>
+        </h1>
+        <p class="hero-subtitle">Your personal sandbox for Generative AI. Explore, experiment, and innovate without limits.</p>
+    </section>
+
+    <div class="playground-container">
+
+        <div class="ai-section">
+            <h3>Chat with GenAI</h3>
+            <div class="output-area" id="chatOutput">
+
+                <div class="chat-message ai">
+                    <p>Hello! How can I assist you today?</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="chatInput">Your Message</label>
+                <textarea id="chatInput" placeholder="Ask me anything..." rows="3"></textarea>
+            </div>
+            <button class="btn-primary" id="sendChatBtn">Send Message</button>
+            <div class="loading-indicator" id="chatLoading">Generating response...</div>
+            <div class="message-box" id="chatMessageBox"></div>
+        </div>
+
+        <div class="ai-section">
+            <h3>Identify Image</h3>
+            <div class="form-group">
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" id="imageUpload" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="imageQuestion">Question (Optional)</label>
+                <input type="text" id="imageQuestion" placeholder="What is this image about?">
+            </div>
+            <button class="btn-primary" id="identifyImageBtn">Analyze Image</button>
+            <div class="loading-indicator" id="imageIdentifyLoading">Analyzing image...</div>
+            <div class="image-output" id="imageIdentifyPreview">
+
+            </div>
+            <div class="output-area" id="imageIdentifyOutput">
+
+            </div>
+            <div class="message-box" id="imageIdentifyMessageBox"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+
+                <p><font style="color: white;">Address:</font> 123 Quantum Lane, Cyber City ‎ </p>
+                <p><font style="color: white;">‎    Phone:</font><a href="tel:+918368730369">+91 8368730369</a></p>
+                <p><font style="color: white;">‎    Email:</font><a href="mailto:info@genai.com">info@genai.com</a></p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GenAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@latest/dist/mobilenet.min.js"></script>
+
+    <script src="auth-scripts.js"></script> 
+    <script src="main.js"></script>
+    <script src="ai-playground-scripts.js"></script>
+</body>
+</html>

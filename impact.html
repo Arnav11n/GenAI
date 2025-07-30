@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI</title>
+    <link href="main.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body id="top">
+
+    <div class="cyber-bg">
+        <div class="cyber-gradient"></div>
+        <div class="matrix-rain" id="matrixRain"></div>
+    </div>
+
+    <div class="particles" id="particlesContainer"></div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="grid-overlay">
+        <div class="grid-lines"></div>
+        <div class="grid-glow"></div>
+    </div>
+
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+    <div class="data-streams" id="dataStreams"></div> 
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">GenAI</a>
+            <ul class="nav-links" id="mainNavLinks">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+            <div class="nav-bottom">
+                <a href="login.html" class="cyber-button" id="navActionButton">Start Building</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuBtn">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="mobile-menu-logo">GenAI</a>
+            <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="login.html" class="cyber-button" id="mobileNavActionButton">Start Building</a>
+        </div>
+        <nav class="mobile-menu-nav">
+            <ul id="mobileNavLinks">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <section class="impact-hero-section py-24 px-8 relative z-10">
+        <div class="impact-hero-container max-w-7xl mx-auto text-center">
+            <h1 class="impact-hero-title fade-up">Quantifiable <span class="text-primary-cyan">Results</span>. <br>Tangible <span class="text-primary-pink">Success</span>.</h1>
+            <p class="impact-hero-subtitle fade-up" data-delay="0.2">See how GenAI empowers organizations to achieve unprecedented growth and efficiency.</p>
+        </div>
+    </section>
+
+    <section class="impact-metrics-section py-24 px-8 relative z-10">
+        <div class="impact-metrics-container max-w-7xl mx-auto">
+            <div class="section-header text-center mb-16 fade-up">
+                <h2 class="section-title">Our Core Impact</h2>
+                <p class="section-subtitle">Key performance indicators powered by GenAI.</p>
+            </div>
+
+            <div class="metrics-visual-container">
+                <canvas id="impactMetricsCanvas"></canvas>
+                <div class="metric-data-overlay">
+                    <div class="impact-metric-node fade-in-scale" data-target="95" data-suffix="%" data-label="Efficiency Boost" data-icon="fas fa-arrow-up-right-dots" style="--node-x: 20%; --node-y: 25%;">
+                        <div class="node-icon"><i class="fas fa-arrow-up-right-dots"></i></div>
+                        <div class="node-number">95%</div>
+                        <div class="node-label">Efficiency Boost</div>
+                    </div>
+                    <div class="impact-metric-node fade-in-scale" data-target="15000" data-suffix="+" data-label="Active Users" data-icon="fas fa-users-viewfinder" style="--node-x: 80%; --node-y: 25%;">
+                        <div class="node-icon"><i class="fas fa-users-viewfinder"></i></div>
+                        <div class="node-number">15k+</div>
+                        <div class="node-label">Active Users</div>
+                    </div>
+                    <div class="impact-metric-node fade-in-scale" data-target="40" data-suffix="%" data-label="Cost Reduction" data-icon="fas fa-handshake-angle" style="--node-x: 25%; --node-y: 75%;">
+                        <div class="node-icon"><i class="fas fa-handshake-angle"></i></div>
+                        <div class="node-number">40%</div>
+                        <div class="node-label">Cost Reduction</div>
+                    </div>
+                    <div class="impact-metric-node fade-in-scale" data-target="100" data-suffix="M+" data-label="Data Transactions" data-icon="fas fa-globe" style="--node-x: 75%; --node-y: 75%;">
+                        <div class="node-icon"><i class="fas fa-globe"></i></div>
+                        <div class="node-number">50M+</div>
+                        <div class="node-label">Data Transactions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-studies-section py-24 px-8 relative z-10">
+        <div class="case-studies-container max-w-7xl mx-auto">
+            <div class="section-header text-center mb-16 fade-up">
+                <h2 class="section-title">Transformative Journeys</h2>
+                <p class="section-subtitle">Explore detailed accounts of how GenAI powered real-world breakthroughs.</p>
+            </div>
+
+            <div class="case-studies-interactive-grid">
+
+                <div class="case-study-block fade-up" data-delay="0.1">
+                    <div class="case-study-preview">
+                        <div class="preview-icon"><i class="fas fa-building"></i></div>
+                        <h3 class="preview-title">Quantum Dynamics Inc.</h3>
+                        <p class="preview-snippet">"Revolutionized R&D pipeline, cutting project delivery time by 30%."</p>
+                        <button class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="case-study-full-content">
+                        <h4>Challenge: Slow R&D Cycles</h4>
+                        <p>Quantum Dynamics faced bottlenecks in their research and development, leading to prolonged project timelines and delayed market entry for their innovative AI solutions.</p>
+                        <h4>Solution: GenAI Integration</h4>
+                        <p>By integrating GenAI's collaborative tools and AI-powered insights, Quantum Dynamics streamlined their data processing, model training, and team coordination. Real-time collaboration features enabled faster iteration and problem-solving.</p>
+                        <h4>Result: 30% Faster Delivery</h4>
+                        <p>The adoption of GenAI resulted in a remarkable 30% reduction in project delivery time, allowing Quantum Dynamics to bring cutting-edge AI products to market significantly faster than competitors.</p>
+                        <button class="hide-details-btn"><i class="fas fa-arrow-left"></i> Back to Stories</button>
+                    </div>
+                </div>
+
+                <div class="case-study-block fade-up" data-delay="0.2">
+                    <div class="case-study-preview">
+                        <div class="preview-icon"><i class="fas fa-robot"></i></div>
+                        <h3 class="preview-title">Cybernetic Solutions LLC</h3>
+                        <p class="preview-snippet">"Team collaboration soared, leading to a 25% increase in successful project completions."</p>
+                        <button class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="case-study-full-content">
+                        <h4>Challenge: Disjointed Teamwork</h4>
+                        <p>Cybernetic Solutions struggled with fragmented communication and siloed workflows across their diverse teams working on robotic process automation projects.</p>
+                        <h4>Solution: Immersive Workspaces</h4>
+                        <p>GenAI's immersive workspace feature provided a centralized, interactive environment where teams could collaborate on complex automation designs, share code, and conduct virtual reviews seamlessly.</p>
+                        <h4>Result: 25% Project Success Increase</h4>
+                        <p>The enhanced collaboration fostered by GenAI led to a 25% increase in successful project completions, improved code quality, and a more cohesive and productive workforce.</p>
+                        <button class="hide-details-btn"><i class="fas fa-arrow-left"></i> Back to Stories</button>
+                    </div>
+                </div>
+
+                <div class="case-study-block fade-up" data-delay="0.3">
+                    <div class="case-study-preview">
+                        <div class="preview-icon"><i class="fas fa-dna"></i></div>
+                        <h3 class="preview-title">Bio-Tech main Corp.</h3>
+                        <p class="preview-snippet">"Data analysis time halved, providing critical insights for breakthrough discoveries."</p>
+                        <button class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="case-study-full-content">
+                        <h4>Challenge: Massive Data Overload</h4>
+                        <p>Bio-Tech main was overwhelmed by the sheer volume of genetic data, making timely analysis and insight extraction a significant hurdle in their research.</p>
+                        <h4>Solution: Dynamic Data Analytics</h4>
+                        <p>GenAI's dynamic data analytics engine allowed Bio-Tech main to ingest, process, and visualize massive datasets in real-time. Its predictive analytics capabilities helped identify crucial patterns quickly.</p>
+                        <h4>Result: Halved Analysis Time</h4>
+                        <p>The integration of GenAI effectively halved their data analysis time, enabling rapid identification of key genetic markers and accelerating their path to groundbreaking scientific discoveries.</p>
+                        <button class="hide-details-btn"><i class="fas fa-arrow-left"></i> Back to Stories</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+
+                <p><font style="color: white;">Address:</font> 123 Quantum Lane, Cyber City ‎ </p>
+                <p><font style="color: white;">‎    Phone:</font><a href="tel:+918368730369">+91 8368730369</a></p>
+                <p><font style="color: white;">‎    Email:</font><a href="mailto:info@genai.com">info@genai.com</a></p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GenAI. All realities reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-scripts.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const caseStudyBlocks = document.querySelectorAll('.case-study-block');
+
+            caseStudyBlocks.forEach(block => {
+                const viewDetailsBtn = block.querySelector('.view-details-btn');
+                const hideDetailsBtn = block.querySelector('.hide-details-btn');
+
+                if (viewDetailsBtn) {
+                    viewDetailsBtn.addEventListener('click', () => {
+                        block.classList.add('flipped');
+                    });
+                }
+
+                if (hideDetailsBtn) {
+                    hideDetailsBtn.addEventListener('click', () => {
+                        block.classList.remove('flipped');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
